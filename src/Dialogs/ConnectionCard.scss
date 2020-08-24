@@ -1,0 +1,21 @@
+.connection-card {
+  display: flex;
+  align-items: center;
+  .connection-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1.5rem;
+    i {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+    }
+    p {
+      background-color: green;
+      color: white !important;
+      border-radius: 4px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
