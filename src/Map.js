@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Map.css";
-import { iconSrc } from "./MarkerIcon";
+import { MarkerIcon } from "./MarkerIcon";
 //Alerts
 import LoadingSnackbar from "./Alerts/LoadingSnackbar";
 import MaxResultsSnackbar from "./Alerts/MaxResultsSnackbar";
@@ -91,7 +91,7 @@ const Map = () => {
           clearStationMarkers();
 
           let stations = res.data;
-          // console.log(stations);
+          console.log(stations);
           addStationMarkers(stations);
           setLoadingSnackbar(false);
 
@@ -107,7 +107,7 @@ const Map = () => {
     const addStationMarkers = (stations) => {
       stations.forEach((station) => {
         let el = document.createElement("img");
-        el.src = iconSrc(station);
+        el.src = MarkerIcon(station);
         el.className = "station_marker";
 
         el.addEventListener("click", () => {

@@ -10,36 +10,32 @@ const levelDetermination = (connections) => {
   return level;
 };
 
-const statusDetermination = (connections) => {
+const statusDetermination = (station) => {
   let status = null;
 
-  connections.forEach((connection) => {
-    if (connection.StatusType === null) {
-      status = "nonoperational";
-    } else {
-      status = connection.StatusType.IsOperational
-        ? "operational"
-        : "nonoperational";
-    }
-  });
+  if (station.StatusType === null) {
+    status = "nonoperational";
+  } else {
+    status = station.StatusType.IsOperational
+      ? "operational"
+      : "nonoperational";
+  }
 
   return status;
 };
 
-const iconSrc = (station) => {
+const MarkerIcon = (station) => {
   let iconString = "";
 
   if (levelDetermination(station.Connections) === null) {
-    return require(`./images/unknown_${statusDetermination(
-      station.Connections
-    )}_icon.png`);
+    return require(`./images/unknown_${statusDetermination(station)}_icon.png`);
   }
 
   iconString = require(`./images/level${levelDetermination(
     station.Connections
-  )}_${statusDetermination(station.Connections)}_icon.png`);
+  )}_${statusDetermination(station)}_icon.png`);
 
   return iconString;
 };
 
-export { iconSrc };
+export { MarkerIcon };
