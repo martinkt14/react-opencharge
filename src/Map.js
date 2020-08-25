@@ -1,19 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Map.css";
-
 import { iconSrc } from "./MarkerIcon";
 //Alerts
 import LoadingSnackbar from "./Alerts/LoadingSnackbar";
 import MaxResultsSnackbar from "./Alerts/MaxResultsSnackbar";
 //Dialogs
 import StationInformationDialog from "./Dialogs/StationInformationDialog";
+import SearchBox from "./Dialogs/SearchBox";
 
 import axios from "axios";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
+let map = null;
 var stationMarkers = [];
+var userMarker = [];
+
+const userSearchSelection = (coords) => {
+  //Pan Map
+  map.panTo(coords);
+  //Clear Old User/Search Marker
+  userMarker.forEach((marker) => {
+    marker.remove();
+  });
+  //Set New User/Search Marker
+  let marker = new mapboxgl.Marker().setLngLat(coords).addTo(map);
+
+  userMarker.push(marker);
+};
 
 const Map = () => {
   const mapContainer = useRef(null);
@@ -32,7 +47,7 @@ const Map = () => {
   };
 
   useEffect(() => {
-    const map = new mapboxgl.Map({
+    map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v10",
       center: [-87.6360688, 41.8796731],
@@ -45,11 +60,13 @@ const Map = () => {
     //Get User Location (if possible)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        new mapboxgl.Marker()
+        let marker = new mapboxgl.Marker()
           .setLngLat([position.coords.longitude, position.coords.latitude])
           .addTo(map);
 
         map.panTo([position.coords.longitude, position.coords.latitude]);
+
+        userMarker.push(marker);
       });
     }
 
@@ -125,11 +142,15 @@ const Map = () => {
     map.on("boxzoomend", () => {
       getStationsByBounds();
     });
+    map.on("moveend", () => {
+      getStationsByBounds();
+    });
   }, []);
 
   return (
     <div>
       <div id="mapbox-map" ref={mapContainer}></div>
+      <SearchBox selectedLocation={userSearchSelection} />
       <LoadingSnackbar open={loadingSnackbar} />
       <MaxResultsSnackbar
         open={maxResultsSnackbar}
