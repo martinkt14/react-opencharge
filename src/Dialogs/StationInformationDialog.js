@@ -15,7 +15,7 @@ import ConnectionCard from "./ConnectionCard";
 import "./StationInformationDialog.scss";
 
 const headerBackgroundColor = () => {
-  return "red";
+  return "#3f51b5";
 };
 
 const styles = (theme) => ({
@@ -34,6 +34,11 @@ const styles = (theme) => ({
     color: "white",
   },
 });
+
+const fullScreenDialog = () => {
+  console.log(window.screen.width <= 500 ? true : false);
+  return window.screen.width <= 500 ? true : false;
+};
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -145,7 +150,11 @@ const StationInformationDialog = (props) => {
 
   return (
     <div>
-      <Dialog open={props.open} onClose={props.handleClose} maxWidth="lg">
+      <Dialog
+        open={props.open}
+        onClose={props.handleClose}
+        fullScreen={fullScreenDialog()}
+      >
         <DialogTitle onClose={props.handleClose}>{title}</DialogTitle>
         <DialogContent>{content}</DialogContent>
       </Dialog>

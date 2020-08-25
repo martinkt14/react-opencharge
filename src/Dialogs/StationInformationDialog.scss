@@ -1,5 +1,5 @@
 #station-information-content {
-  min-width: 500px;
+  max-width: 100%;
   #navigate-button {
     text-align: center;
     color: #607d8b;
@@ -29,6 +29,10 @@
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 1rem;
       grid-row-gap: 1rem;
+      @media (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }
