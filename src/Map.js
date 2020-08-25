@@ -19,7 +19,7 @@ var userMarker = [];
 
 const userSearchSelection = (coords) => {
   //Pan Map
-  map.panTo(coords);
+  map.flyTo({ center: coords, zoom: 12, bearing: 0 });
   //Clear Old User/Search Marker
   userMarker.forEach((marker) => {
     marker.remove();
