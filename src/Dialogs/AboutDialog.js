@@ -6,10 +6,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
+const fullScreenDialog = () => {
+  return window.screen.width <= 500 ? true : false;
+};
+
 const AboutDialog = (props) => {
   return (
     <div>
-      <Dialog open={props.open} onClose={props.handleClose}>
+      <Dialog
+        open={props.open}
+        onClose={props.handleClose}
+        fullScreen={fullScreenDialog()}
+      >
         <DialogTitle>About</DialogTitle>
         <DialogContent>
           <DialogContentText>
