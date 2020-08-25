@@ -10,7 +10,9 @@ const ConnectionCard = (props) => {
       <CardContent className="connection-card">
         <div className="connection-icon-container">
           <i className="far fa-charging-station"></i>
-          <p className="connection-quantity">x1</p>
+          <p className="connection-quantity">
+            x{props.connection.Quantity ? props.connection.Quantity : "1"}
+          </p>
         </div>
         <div>
           <p>{props.connection.ConnectionType.Title}</p>

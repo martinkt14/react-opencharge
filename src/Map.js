@@ -74,7 +74,7 @@ const Map = () => {
           clearStationMarkers();
 
           let stations = res.data;
-          console.log(stations);
+          // console.log(stations);
           addStationMarkers(stations);
           setLoadingSnackbar(false);
 

@@ -36,7 +36,6 @@ const styles = (theme) => ({
 });
 
 const fullScreenDialog = () => {
-  console.log(window.screen.width <= 500 ? true : false);
   return window.screen.width <= 500 ? true : false;
 };
 
@@ -100,6 +99,17 @@ const StationInformationDialog = (props) => {
         );
     };
 
+    const stationQuantity = () => {
+      let connections = station.Connections;
+      let quantity = 0;
+
+      connections.forEach((connection) => {
+        quantity += connection.Quantity ? connection.Quantity : 1;
+      });
+
+      return quantity;
+    };
+
     content = (
       <div id="station-information-content">
         <div className="station-information-content-section">
@@ -126,8 +136,7 @@ const StationInformationDialog = (props) => {
           </h4>
 
           <p>
-            <strong>Number of Stations/Bays:</strong>{" "}
-            {station.Connections.length}
+            <strong>Number of Stations/Bays:</strong> {stationQuantity()}
           </p>
           <p>
             <strong>Operational Status:</strong>{" "}
@@ -143,6 +152,14 @@ const StationInformationDialog = (props) => {
           <h4>
             <i className="fas fa-file-alt"></i>Usage Details/Restrictions
           </h4>
+          <p>
+            <strong>Usage:</strong>{" "}
+            {station.UsageType ? station.UsageType.Title : "Unknown"}
+          </p>
+          <p>
+            <strong>Usage Cost:</strong>{" "}
+            {station.UsageCost ? station.UsageCost : "Unknown"}
+          </p>
         </div>
       </div>
     );
