@@ -12,13 +12,13 @@ import Divider from "@material-ui/core/Divider";
 
 import axios from "axios";
 
+import "./SearchBox.scss";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    margin: "1rem auto 0",
-    width: 400,
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -26,13 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     padding: 10,
-  },
-  searchList: {
-    cursor: "pointer",
-  },
-  attributionText: {
-    fontSize: "9px",
-    color: "lightgray",
   },
 }));
 
@@ -79,22 +72,23 @@ export default function SearchBox(props) {
   const SearchResultsList = () => {
     if (showResults) {
       return (
-        <Card className={classes.root}>
+        <Card className={classes.root} id="search-results">
           <CardContent>
-            <List className={classes.searchList}>
+            <List id="search-results-list">
               {searchResults.features.map((item) => {
                 return (
                   <ListItem
                     key={item.id}
                     onClick={() => handleResultSelection(item)}
+                    className="search-result-item"
                   >
                     {item.place_name}
                   </ListItem>
                 );
               })}
             </List>
-            <Divider />;
-            <p className={classes.attributionText}>
+            <Divider />
+            <p id="search-results-attribution-text">
               {searchResults.attribution}
             </p>
           </CardContent>
@@ -107,7 +101,7 @@ export default function SearchBox(props) {
 
   return (
     <div>
-      <Paper className={classes.root} elevation={3}>
+      <Paper className={classes.root} elevation={3} id="location-search-box">
         <SearchIcon className={classes.searchIcon} />
         <InputBase
           className={classes.input}

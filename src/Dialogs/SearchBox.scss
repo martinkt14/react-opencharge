@@ -1,0 +1,24 @@
+#location-search-box {
+  width: 400px;
+  margin: 1rem auto;
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+}
+
+#search-results {
+  width: 400px;
+  margin: 0 auto;
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+  #search-results-list {
+    .search-result-item {
+      cursor: pointer;
+    }
+  }
+  #search-results-attribution-text {
+    font-size: 9px;
+    color: lightgray;
+  }
+}
