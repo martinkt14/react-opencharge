@@ -7,7 +7,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import SearchIcon from "@material-ui/icons/Search";
-import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import InfoIcon from "@material-ui/icons/Info";
 import ExploreIcon from "@material-ui/icons/Explore";
 
@@ -26,23 +25,17 @@ const TemporaryDrawer = (props) => {
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            <ListItemText primary="Search" />
+            <ListItemText primary="Search (Return to Map)" />
           </ListItem>
-          <ListItem button key="Find Nearest Station">
-            <ListItemIcon>
-              <LocationSearchingIcon />
-            </ListItemIcon>
-            <ListItemText primary="Find Nearest Station" />
-          </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem button key="Using the Map">
             <ListItemIcon>
               <ExploreIcon />
             </ListItemIcon>
             <ListItemText primary="Using the Map" />
           </ListItem>
-        </List>
-        <Divider />
-        <List>
           <ListItem button key="About" onClick={props.openAboutDialog}>
             <ListItemIcon>
               <InfoIcon />

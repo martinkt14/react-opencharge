@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import "./Nav.css";
 
 import Drawer from "./Drawer";
 import AboutDialog from "./Dialogs/AboutDialog";

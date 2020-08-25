@@ -8,6 +8,7 @@ import MaxResultsSnackbar from "./Alerts/MaxResultsSnackbar";
 //Dialogs
 import StationInformationDialog from "./Dialogs/StationInformationDialog";
 import SearchBox from "./Dialogs/SearchBox";
+import LocateUser from "./Search/LocateUser";
 
 import axios from "axios";
 
@@ -16,19 +17,6 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 let map = null;
 var stationMarkers = [];
 var userMarker = [];
-
-const userSearchSelection = (coords) => {
-  //Pan Map
-  map.flyTo({ center: coords, zoom: 12, bearing: 0 });
-  //Clear Old User/Search Marker
-  userMarker.forEach((marker) => {
-    marker.remove();
-  });
-  //Set New User/Search Marker
-  let marker = new mapboxgl.Marker().setLngLat(coords).addTo(map);
-
-  userMarker.push(marker);
-};
 
 const Map = () => {
   const mapContainer = useRef(null);
@@ -40,10 +28,52 @@ const Map = () => {
     false
   );
   const [selectedStation, setSelectedStation] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
 
   //Dialog Handlers
   const closeStationInformationDialogHandler = () => {
     setStationInformationDialog(false);
+  };
+
+  //Location Search Selection Handler
+  const userSearchSelectionHandler = (coords) => {
+    //Pan Map
+    map.flyTo({ center: coords, zoom: 12, bearing: 0 });
+    //Clear Old User/Search Marker
+    userMarker.forEach((marker) => {
+      marker.remove();
+    });
+    //Set New Search Marker
+    let marker = new mapboxgl.Marker().setLngLat(coords).addTo(map);
+    userMarker.push(marker);
+    //Clear User Location
+    setUserLocation(null);
+  };
+
+  //Locate User Button Handler
+  const locateUserButtonHandler = () => {
+    //Clear Old Search Marker
+    userMarker.forEach((marker) => {
+      marker.remove();
+    });
+    //Get User Location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let marker = new mapboxgl.Marker()
+          .setLngLat([position.coords.longitude, position.coords.latitude])
+          .addTo(map);
+
+        map.flyTo({
+          center: [position.coords.longitude, position.coords.latitude],
+          zoom: 12,
+          bearing: 0,
+        });
+
+        userMarker.push(marker);
+
+        setUserLocation(position);
+      });
+    }
   };
 
   useEffect(() => {
@@ -67,6 +97,8 @@ const Map = () => {
         map.panTo([position.coords.longitude, position.coords.latitude]);
 
         userMarker.push(marker);
+
+        setUserLocation(position);
       });
     }
 
@@ -91,7 +123,6 @@ const Map = () => {
           clearStationMarkers();
 
           let stations = res.data;
-          console.log(stations);
           addStationMarkers(stations);
           setLoadingSnackbar(false);
 
@@ -147,10 +178,19 @@ const Map = () => {
     });
   }, []);
 
+  const LocateUserButton = () => {
+    if (!userLocation) {
+      return <LocateUser clickHandler={locateUserButtonHandler} />;
+    }
+
+    return null;
+  };
+
   return (
     <div>
       <div id="mapbox-map" ref={mapContainer}></div>
-      <SearchBox selectedLocation={userSearchSelection} />
+      <SearchBox selectedLocation={userSearchSelectionHandler} />
+      <LocateUserButton />
       <LoadingSnackbar open={loadingSnackbar} />
       <MaxResultsSnackbar
         open={maxResultsSnackbar}
