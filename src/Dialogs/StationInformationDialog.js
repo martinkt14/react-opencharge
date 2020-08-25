@@ -79,6 +79,22 @@ const StationInformationDialog = (props) => {
 
   //Define Content Information
   if (station) {
+    const mapsSelector = () => {
+      if (
+        /* if we're on iOS, open in Apple Maps */
+        navigator.platform.indexOf("iPhone") !== -1 ||
+        navigator.platform.indexOf("iPad") !== -1 ||
+        navigator.platform.indexOf("iPod") !== -1
+      )
+        window.open(
+          `maps://maps.google.com/maps?daddr=${station.AddressInfo.Latitude},${station.AddressInfo.Longitude}&amp;ll=`
+        );
+      /* else use Google */ else
+        window.open(
+          `https://maps.google.com/maps?daddr=${station.AddressInfo.Latitude},${station.AddressInfo.Longitude}&amp;ll=`
+        );
+    };
+
     content = (
       <div id="station-information-content">
         <div className="station-information-content-section">
@@ -92,7 +108,7 @@ const StationInformationDialog = (props) => {
             {station.AddressInfo.Postcode}
           </p>
         </div>
-        <Card elevation={4}>
+        <Card elevation={4} onClick={mapsSelector}>
           <CardContent id="navigate-button">
             <i className="fas fa-route"></i>
             <p>Navigate</p>
