@@ -22,7 +22,7 @@ const TemporaryDrawer = (props) => {
         onClose={props.toggleDrawer}
       >
         <List>
-          <ListItem button key="Search">
+          <ListItem button key="Search" onClick={props.toggleDrawer}>
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
