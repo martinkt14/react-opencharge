@@ -7,7 +7,7 @@ import LoadingSnackbar from "./Alerts/LoadingSnackbar";
 import MaxResultsSnackbar from "./Alerts/MaxResultsSnackbar";
 //Dialogs
 import StationInformationDialog from "./Dialogs/StationInformationDialog";
-import SearchBox from "./Dialogs/SearchBox";
+import SearchBox from "./Search/SearchBox";
 import LocateUser from "./Search/LocateUser";
 
 import axios from "axios";
