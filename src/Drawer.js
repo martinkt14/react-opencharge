@@ -8,7 +8,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import SearchIcon from "@material-ui/icons/Search";
 import InfoIcon from "@material-ui/icons/Info";
-import ExploreIcon from "@material-ui/icons/Explore";
 
 import "./Drawer.css";
 
@@ -30,12 +29,12 @@ const TemporaryDrawer = (props) => {
         </List>
         <Divider />
         <List>
-          <ListItem button key="Using the Map">
+          {/* <ListItem button key="Using the Map">
             <ListItemIcon>
               <ExploreIcon />
             </ListItemIcon>
             <ListItemText primary="Using the Map" />
-          </ListItem>
+          </ListItem> */}
           <ListItem button key="About" onClick={props.openAboutDialog}>
             <ListItemIcon>
               <InfoIcon />

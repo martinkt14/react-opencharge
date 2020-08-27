@@ -117,7 +117,7 @@ const Map = () => {
 
       axios
         .get(
-          `https://api.openchargemap.io/v3/poi/?output=json&maxresults=250&verbose=true&boundingbox=${LatLong1},${LatLong2}`
+          `https://api.openchargemap.io/v3/poi/?output=json&maxresults=250&verbose=true&boundingbox=${LatLong1},${LatLong2}&key=${process.env.REACT_APP_OCM_KEY}`
         )
         .then((res) => {
           clearStationMarkers();
