@@ -14,7 +14,7 @@ const statusDetermination = (station) => {
   let status = null;
 
   if (station.StatusType === null) {
-    status = "nonoperational";
+    status = "operational";
   } else {
     status = station.StatusType.IsOperational
       ? "operational"

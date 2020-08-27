@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -8,11 +8,14 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
+import Fab from "@material-ui/core/Fab";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import ConnectionCard from "./ConnectionCard";
 
 import "./StationInformationDialog.scss";
+
+import { auth, db } from "./../firebase";
 
 const headerBackgroundColor = () => {
   return "#3f51b5";
@@ -72,9 +75,69 @@ const ConnectionCards = (connections) => {
 };
 
 const StationInformationDialog = (props) => {
-  let station = props.station;
+  var station = props.station;
   let title = null;
   let content = null;
+
+  const [favoriteStation, setFavoriteStation] = useState(false);
+
+  useEffect(() => {
+    //On Render Check If Favorite Station
+    db.collection("favorites")
+      .where("stationid", "==", station.ID)
+      .where("uid", "==", auth.currentUser.uid)
+      .get()
+      .then((docs) => {
+        if (!docs) {
+          setFavoriteStation(false);
+        } else {
+          docs.forEach((doc) => {
+            if (doc.stationid === station.ID) {
+              setFavoriteStation(true);
+            }
+          });
+        }
+      })
+      .catch((error) =>
+        console.error("Unable to determine favorite status of station selected")
+      );
+  });
+
+  const addFavoriteHandler = (station) => {
+    db.collection("favorites")
+      .add({
+        uid: auth.currentUser.uid,
+        stationid: station.ID,
+      })
+      .then(setFavoriteStation(true))
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+  };
+
+  const removeFavoriteHandler = (station) => {
+    //Get Matching Document
+    let favorites = db.collection("favorites");
+    let query = favorites
+      .where("stationid", "==", station.ID)
+      .where("uid", "==", auth.currentUser.uid);
+
+    query
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          //Delete Document
+          db.collection("favorites")
+            .doc(doc.id)
+            .delete()
+            .then(setFavoriteStation(false))
+            .catch((error) =>
+              console.error("Error removing favorite: ", error)
+            );
+        });
+      })
+      .catch((error) => console.log("Error getting favorite: ", error));
+  };
 
   //Define Title Information
   if (station) {
@@ -172,7 +235,30 @@ const StationInformationDialog = (props) => {
         onClose={props.handleClose}
         fullScreen={fullScreenDialog()}
       >
-        <DialogTitle onClose={props.handleClose}>{title}</DialogTitle>
+        <DialogTitle onClose={props.handleClose}>
+          {title}
+          {favoriteStation ? (
+            <Fab
+              size="medium"
+              className="fab fab-favorite-station"
+              onClick={() => {
+                removeFavoriteHandler(station);
+              }}
+            >
+              <FavoriteBorderIcon />
+            </Fab>
+          ) : (
+            <Fab
+              size="medium"
+              className="fab fab-nonfavorite-station"
+              onClick={() => {
+                addFavoriteHandler(station);
+              }}
+            >
+              <FavoriteBorderIcon />
+            </Fab>
+          )}
+        </DialogTitle>
         <DialogContent>{content}</DialogContent>
       </Dialog>
     </div>
