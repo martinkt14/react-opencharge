@@ -10,12 +10,21 @@ import SearchIcon from "@material-ui/icons/Search";
 import InfoIcon from "@material-ui/icons/Info";
 
 import "./Drawer.css";
+import UserLogin from "./Nav/UserLogin";
+
+const anchorPosition = () => {
+  if (window.screen.width < 500) {
+    return "right";
+  } else {
+    return "left";
+  }
+};
 
 const TemporaryDrawer = (props) => {
   return (
     <div>
       <Drawer
-        anchor="left"
+        anchor={anchorPosition()}
         open={props.openDrawer}
         onClose={props.toggleDrawer}
       >
@@ -42,6 +51,8 @@ const TemporaryDrawer = (props) => {
             <ListItemText primary="About" />
           </ListItem>
         </List>
+        <Divider />
+        <UserLogin type="drawer" />
       </Drawer>
     </div>
   );

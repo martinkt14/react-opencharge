@@ -1,0 +1,11 @@
+.logout-container {
+  display: flex;
+  &.drawer {
+    margin: 1rem auto;
+    flex-direction: column-reverse;
+    align-items: center;
+    button {
+      margin-top: 1rem;
+    }
+  }
+}

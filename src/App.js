@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import Nav from "./Nav";
+import Nav from "./Nav/Nav";
 import Map from "./Map";
 
 const App = () => {
