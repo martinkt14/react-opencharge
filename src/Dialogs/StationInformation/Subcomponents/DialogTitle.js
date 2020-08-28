@@ -25,20 +25,19 @@ const DialogTitle = withStyles(styles)((props) => {
 
   const [favoriteStation, setFavoriteStation] = useState(false);
 
-  const checkUserLoggedIn = (station) => {
+  const checkUserLoggedIn = () => {
     if (!auth.currentUser) {
       auth.signInWithPopup(provider).then(() => {
-        isFavoriteStation(station);
         return true;
       });
     }
 
-    return false;
+    return true;
   };
 
   const addFavoriteHandler = (station) => {
     //If user is logged in. Allow them to add favorite station
-    if (checkUserLoggedIn(station)) {
+    if (checkUserLoggedIn()) {
       db.collection("favorites")
         .add({
           uid: auth.currentUser.uid,
