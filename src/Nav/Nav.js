@@ -54,7 +54,7 @@ const Nav = () => {
             <MenuIcon />
           </IconButton>
           <p id="nav-title">Electric Vehicle Charging Stations</p>
-          {window.screen.width < 500 ? "" : <UserLogin />}
+          {window.screen.width < 500 ? "" : <UserLogin type="nav" />}
         </Toolbar>
       </AppBar>
       <Drawer

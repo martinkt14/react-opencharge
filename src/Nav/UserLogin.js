@@ -50,6 +50,7 @@ const UserLogin = (props) => {
           color="inherit"
           onClick={loginHandler}
           variant={props.type === "drawer" ? "contained" : ""}
+          className={`login-button ${props.type}`}
         >
           Login
         </Button>
