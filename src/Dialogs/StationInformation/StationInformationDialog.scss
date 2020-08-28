@@ -1,6 +1,10 @@
-#station-information-content {
-  max-width: 100%;
+#station-information-dialog {
+  min-width: 400px;
+  @media (max-width: 400px) {
+    width: 100%;
+  }
   #navigate-button {
+    margin-top: 1rem;
     text-align: center;
     color: #607d8b;
     font-size: 2rem;
@@ -9,6 +13,7 @@
       margin: 0;
       font-size: 1.4rem;
       font-weight: 700;
+      color: inherit;
     }
   }
   .station-information-content-section {
@@ -33,22 +38,6 @@
         display: flex;
         flex-direction: column;
       }
-    }
-  }
-}
-
-.fab {
-  &.fab-nonfavorite-station {
-    background-color: white;
-    color: #455a64;
-    margin-left: 1rem;
-  }
-  &.fab-favorite-station {
-    background-color: #ef5350;
-    color: white;
-    margin-left: 1rem;
-    &:hover {
-      background-color: #d32f2f;
     }
   }
 }

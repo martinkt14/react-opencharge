@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 
 import Drawer from "./Drawer";
-import AboutDialog from "./Dialogs/AboutDialog";
+import AboutDialog from "./Dialogs/About/AboutDialog";
 
 import { auth, provider } from "./firebase";
 
@@ -82,10 +82,10 @@ const Nav = () => {
           </Typography>
           {user ? (
             <div className={classes.logoutContainer}>
-              <Avatar src={user.photoURL} />
               <Button color="inherit" onClick={logoutHandler}>
                 Logout
               </Button>
+              <Avatar src={user.photoURL} />
             </div>
           ) : (
             <Button color="inherit" onClick={loginHandler}>

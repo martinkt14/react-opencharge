@@ -6,7 +6,7 @@ import { MarkerIcon } from "./MarkerIcon";
 import LoadingSnackbar from "./Alerts/LoadingSnackbar";
 import MaxResultsSnackbar from "./Alerts/MaxResultsSnackbar";
 //Dialogs
-import StationInformationDialog from "./Dialogs/StationInformationDialog";
+import StationInformationDialog from "./Dialogs/StationInformation/StationInformationDialog";
 import SearchBox from "./Search/SearchBox";
 import LocateUser from "./Search/LocateUser";
 
