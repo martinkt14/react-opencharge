@@ -4,6 +4,9 @@
   background-color: rgb(63, 81, 181);
   color: white;
   padding: 0.6rem 1.2rem;
+  @media (max-width: 500px) {
+    display: block;
+  }
   #station-id {
     color: white;
     a {
@@ -12,15 +15,20 @@
     }
   }
   .fab {
+    margin-left: 1rem;
+    @media (max-width: 500px) {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
     &.fab-nonfavorite-station {
       background-color: white;
       color: #455a64;
-      margin-left: 1rem;
+      // margin-left: 1rem;
     }
     &.fab-favorite-station {
       background-color: #fbc02d;
       color: white;
-      margin-left: 1rem;
+      // margin-left: 1rem;
       &:hover {
         background-color: #f9a825;
       }
