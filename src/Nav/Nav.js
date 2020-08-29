@@ -4,6 +4,7 @@ import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import Drawer from "../Drawer";
+import FavoritesDialog from "./../Dialogs/Favorites/FavoritesDialog";
 import AboutDialog from "../Dialogs/About/AboutDialog";
 import UserLogin from "./UserLogin";
 
@@ -26,6 +27,7 @@ const Nav = () => {
 
   let [drawerOpen, setDrawerOpen] = useState(false);
   let [aboutDialogOpen, setAboutDialogOpen] = useState(false);
+  let [favoritesDialogOpen, setFavoritesDialogOpen] = useState(false);
 
   const openAboutDialogHandler = () => {
     setAboutDialogOpen(true);
@@ -34,6 +36,15 @@ const Nav = () => {
 
   const closeAboutDialogHandler = () => {
     setAboutDialogOpen(false);
+  };
+
+  const openFavoritesDialogHandler = () => {
+    setFavoritesDialogOpen(true);
+    setDrawerOpen(false);
+  };
+
+  const closeFavoritesDialogHandler = () => {
+    setFavoritesDialogOpen(false);
   };
 
   const toggleDrawer = () => {
@@ -61,10 +72,15 @@ const Nav = () => {
         openDrawer={drawerOpen}
         toggleDrawer={toggleDrawer}
         openAboutDialog={openAboutDialogHandler}
+        openFavoritesDialog={openFavoritesDialogHandler}
       />
       <AboutDialog
         open={aboutDialogOpen}
         handleClose={closeAboutDialogHandler}
+      />
+      <FavoritesDialog
+        open={favoritesDialogOpen}
+        handleClose={closeFavoritesDialogHandler}
       />
     </div>
   );

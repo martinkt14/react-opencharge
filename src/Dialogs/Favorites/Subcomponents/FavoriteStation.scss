@@ -1,0 +1,40 @@
+.favorite-station-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  &:not(:first-of-type) {
+    // margin-top: 1rem;
+    border-top: 1px solid #607d8b;
+  }
+  .favorite-station-info {
+    margin-right: 1.4rem;
+    p {
+      margin: 0;
+      font-size: 1.2rem;
+      &.ocm-id {
+        font-size: 0.9rem;
+      }
+    }
+    .favorite-station-address {
+      margin-top: 1rem;
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  .favorite-station-navigate {
+    .navigate-button {
+      text-align: center;
+      color: #607d8b;
+      font-size: 2rem;
+      cursor: pointer;
+      p {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: inherit;
+      }
+    }
+  }
+}

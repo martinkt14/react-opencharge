@@ -40,8 +40,7 @@ export default function SearchBox(props) {
 
     if (searchValue.length > 4) {
       //Mapbox forward geoencoding API baseURL
-      const mapboxFGBaseURL =
-        "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+      const mapboxFGBaseURL = "https://apibox.com/geocoding/v5/mapbox.places/";
 
       //Search for data
       axios
@@ -75,7 +74,7 @@ export default function SearchBox(props) {
         <Card className={classes.root} id="search-results">
           <CardContent>
             <List id="search-results-list">
-              {searchResults.features.map((item) => {
+              {searchResults.features((item) => {
                 return (
                   <ListItem
                     key={item.id}

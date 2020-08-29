@@ -42,6 +42,16 @@ const DialogTitle = withStyles(styles)((props) => {
         .add({
           uid: auth.currentUser.uid,
           stationid: station.ID,
+          title: station.AddressInfo.Title,
+          coords: {
+            lat: station.AddressInfo.Latitude,
+            long: station.AddressInfo.Longitude,
+          },
+          address: {
+            street: station.AddressInfo.AddressLine1,
+            city: station.AddressInfo.Town,
+            state: station.AddressInfo.StateOrProvince,
+          },
         })
         .then(setFavoriteStation(true))
         .catch(function (error) {

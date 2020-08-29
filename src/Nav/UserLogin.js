@@ -37,7 +37,7 @@ const UserLogin = (props) => {
           <Button
             color="inherit"
             onClick={logoutHandler}
-            variant={props.type === "drawer" ? "contained" : ""}
+            variant={props.type === "drawer" ? "contained" : "text"}
           >
             Logout
           </Button>
@@ -49,7 +49,7 @@ const UserLogin = (props) => {
         <Button
           color="inherit"
           onClick={loginHandler}
-          variant={props.type === "drawer" ? "contained" : ""}
+          variant={props.type === "drawer" ? "contained" : "text"}
           className={`login-button ${props.type}`}
         >
           Login

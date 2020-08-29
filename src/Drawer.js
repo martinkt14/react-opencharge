@@ -8,6 +8,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import SearchIcon from "@material-ui/icons/Search";
 import InfoIcon from "@material-ui/icons/Info";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
+import { auth } from "./firebase";
 
 import "./Drawer.css";
 import UserLogin from "./Nav/UserLogin";
@@ -35,6 +38,18 @@ const TemporaryDrawer = (props) => {
             </ListItemIcon>
             <ListItemText primary="Search (Return to Map)" />
           </ListItem>
+          {auth.currentUser ? (
+            <ListItem
+              button
+              key="My Favorites"
+              onClick={props.openFavoritesDialog}
+            >
+              <ListItemIcon>
+                <FavoriteIcon />
+              </ListItemIcon>
+              <ListItemText primary="My Favorites" />
+            </ListItem>
+          ) : null}
         </List>
         <Divider />
         <List>
